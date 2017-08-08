@@ -141,7 +141,7 @@
         <% if user_signed_in? %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Hello, <%= current_user.username %>! <span class="caret"></span></a>
+            <%= image_tag current_user.avatar.url, style: 'border-radius: 5px; width: 30px; height: 30px;' if !current_user.avatar.blank? %> Hello, <%= current_user.username %>! <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
               <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
