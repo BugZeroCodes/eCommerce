@@ -26,6 +26,9 @@
     color: red;
     text-decoration: none;
   }
+  a:link {
+    color: teal;
+  }
   a:hover {
     text-decoration: underline;
   }
@@ -43,16 +46,16 @@
   ol {
     list-style-type: upper-alpha;
   }
-  .btn.btn-primary {
+  .btn-primary {
     background-image: linear-gradient(navy, blue);
   }
-  .btn.btn-success {
+  .btn-success {
     background-image: linear-gradient(lime, green);
   }
-  .btn.btn-warning {
+  .btn-warning {
     background-image: linear-gradient(orange, red);
   }
-  .btn.btn-danger {
+  .btn-danger {
     background-image: linear-gradient(crimson, red);
   }
   td {
@@ -73,25 +76,25 @@
   .restock:active {
     background-image: linear-gradient(aqua, blue);
   }
-  .btn.btn-success:active {
+  .btn-success:active {
     background-image: linear-gradient(green, lime);
   }
-  .btn.btn-danger:active {
+  .btn-danger:active {
     background-image: linear-gradient(red, crimson);
   }
-  .btn.btn-warning:active {
+  .btn-warning:active {
     background-image: linear-gradient(red, orange);
   }
-  .btn.btn-primary:active {
+  .btn-primary:active {
     background-image: linear-gradient(blue, navy);
   }
   .pagination a:visited {
     color: black;
   }
-  .btn.btn-default {
+  .btn-default {
     background-image: linear-gradient(black, gray);
   }
-  .btn.btn-default:active {
+  .btn-default:active {
     background-image: linear-gradient(gray, black);
   }
   .pagination a:hover {
@@ -136,12 +139,11 @@
         </ul>
       </li>
       <ul class="nav navbar-nav navbar-right">
-      <li><a href="/view_order">View Cart</a></li> <!-- already here -->
-        <!-- add this code: -->
+      <li><a href="/view_order">View Cart</a></li>
         <% if user_signed_in? %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Hello, <%= current_user.username %>! <span class="caret"></span></a>
+            <%= image_tag current_user.avatar.url, style: 'border-radius: 5px; width: 35px; height: 35px;' if !current_user.avatar.blank? %> Hello, <%= current_user.username %>! <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
               <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
