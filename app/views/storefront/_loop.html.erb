@@ -1,0 +1,66 @@
+<% @products.each do |product| %>
+<div class="col-md-4">
+  <div class="well center-it">
+    <% if !product.image.url.blank? %>
+    <p><%= image_tag product.image.url, class: "storefront-pics" %></p>
+    <% end %>
+    <h3><%= link_to product.name, product %></h3>
+    <p><%= number_to_currency product.price %></p>
+    <p>
+      <a href="#" data-toggle="modal" data-target="#myModal_<%= product.id %>" class='btn btn-primary'>
+        <span class="glyphicon glyphicon-plus"></span> Quick Info
+      </a>
+    </p>
+    <% if product.quantity != 0 %>
+    <p>
+      <%= product.quantity %> <%= product.name %>s left!<br />
+      <% unless product.quantity >= 1000 %>
+      <br />
+        <%= link_to 'Restock', edit_product_path(product), class: 'restock' %>
+      <% else %>
+      <% unless product.name.include? 'sh' %>
+        <p>No need to restock <%= product.name %>s!</p>
+      <% else %>
+        <p>No need to restock <%= product.name %>es!</p>
+      <% end %>
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      No more <%= product.name %>s!
+      Restock on <%= product.name %>s <%= link_to 'now.', edit_product_path(product), class: 'restock' %>
+    </p>
+    <% end %>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_<%= product.id %>">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= product.name %></h4>
+      </div>
+      <div class="modal-body">
+        <p><%= product.description %></p>
+      </div>
+      <div class="modal-footer">
+        <% if product.quantity > 0 %>
+          <p>
+            <%= form_tag add_to_cart_path do %>
+            <%= hidden_field_tag :product_id, product.id %>
+            <%= number_field_tag :quantity, nil, placeholder: "How many?" %>
+            <%= submit_tag "Add to Cart", class: "btn btn-primary" %>
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            No more <%= product.name %>s!
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<%= paginate @products %>

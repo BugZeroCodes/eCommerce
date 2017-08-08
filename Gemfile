@@ -59,7 +59,16 @@ gem 'paperclip'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
+gem 'kaminari'
 
 gem 'cancancan'
 gem 'hirb'
 gem 'better_errors', group: :development # Replaces default red errors with more useful error screen
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'figaro'
+
+# for PC users:
+
+gem 'certified'
+
+# will help us avoid SSL errors
